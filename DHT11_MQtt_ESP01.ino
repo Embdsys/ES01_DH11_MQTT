@@ -79,13 +79,13 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
-    String clientId = "ESP8266Client-";
+    String clientId = "ESP8266Client- Temp1";
     clientId += String(random(0xffff), HEX);
     // Attempt to connect
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("outTopic", "hello world");
+      //client.publish("outTopic", "hello world");
       // ... and resubscribe
       client.subscribe("inTopic");
     } else {
@@ -113,16 +113,17 @@ void loop() {
     reconnect();
   }
   client.loop();
-
   unsigned long now = millis();
-  if (now - lastMsg > 2000) {
+  if (now - lastMsg > 5000) {
     lastMsg = now;
     float tempValue = readTemp();
     float humValue = readHum();
+    float tempo = millis();
     Serial.println(tempValue);
     Serial.println(humValue);
+    Serial.println(tempo);
     //Gettime
-    snprintf (msg, MSG_BUFFER_SIZE, "%c : %lf : %lf",timeClient.getFormattedTime(), tempValue, humValue); //Here you write the message to publish
+    snprintf (msg, MSG_BUFFER_SIZE, "%lf : %lf : %lf",tempo, tempValue, humValue); //Here you write the message to publish
     Serial.print("Publish message: ");
     Serial.println(msg);
     client.publish("outTopic",msg);
