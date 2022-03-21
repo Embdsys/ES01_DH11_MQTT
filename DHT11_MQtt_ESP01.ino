@@ -60,13 +60,13 @@ void setup_wifi() {
   dht.begin(); //Start reading temps
 }
 
-float readTemp(){  
-    float newT = dht.readTemperature();
+int readTemp(){  
+    int newT = dht.readTemperature();
     return newT;
   }
 
-float readHum(){
-  float newH = dht.readHumidity();
+int readHum(){
+  int newH = dht.readHumidity();
   return newH;
   }
 
@@ -114,18 +114,16 @@ void loop() {
   }
   client.loop();
   unsigned long now = millis();
-  if (now - lastMsg > 5000) {
+  if (now - lastMsg > 6000) {
     lastMsg = now;
-    float tempValue = readTemp();
-    float humValue = readHum();
-    float tempo = millis();
-    Serial.println(tempValue);
-    Serial.println(humValue);
-    Serial.println(tempo);
+    while (isnan(readTemp() || readTemp()>100)){
+      delay(5);
+      }
+    int tempValue = readTemp();
+    int humValue = readHum();
+    int tempo = millis(); 
     //Gettime
-    snprintf (msg, MSG_BUFFER_SIZE, "%lf : %lf : %lf",tempo, tempValue, humValue); //Here you write the message to publish
-    Serial.print("Publish message: ");
-    Serial.println(msg);
+    snprintf (msg, MSG_BUFFER_SIZE, "%i : %i : %i",tempo, tempValue, humValue); //Here you write the message to publish
     client.publish("outTopic",msg);
   }
 }
