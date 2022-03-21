@@ -1,6 +1,8 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <DHT.h>
+#include <WiFiUdp.h>
+#include <NTPClient.h>
 
 #define DHTPIN 2     // Digital pin connected to the DHT sensor
 
@@ -14,6 +16,12 @@ DHT dht(DHTPIN, DHTTYPE);
 // current temperature & humidity, updated in loop()
 float t = 0.0;
 float h = 0.0;
+
+WiFiUDP ntpUDP;
+
+// By default 'pool.ntp.org' is used with 60 seconds update interval and
+// no offset
+NTPClient timeClient(ntpUDP);
 
 // Update these with values suitable for your network.
 const char* ssid = "107E1C";  ///////////// your ssid.
@@ -95,10 +103,11 @@ void setup() {
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
-   
+  timeClient.begin();   
 }
 
 void loop() {
+  timeClient.update();
   String ID = ":Temperature:";
   if (!client.connected()) {
     reconnect();
@@ -112,7 +121,8 @@ void loop() {
     float humValue = readHum();
     Serial.println(tempValue);
     Serial.println(humValue);
-    snprintf (msg, MSG_BUFFER_SIZE, "%lf : %lf", tempValue, humValue); //Here you write the message to publish
+    //Gettime
+    snprintf (msg, MSG_BUFFER_SIZE, "%c : %lf : %lf",timeClient.getFormattedTime(), tempValue, humValue); //Here you write the message to publish
     Serial.print("Publish message: ");
     Serial.println(msg);
     client.publish("outTopic",msg);
