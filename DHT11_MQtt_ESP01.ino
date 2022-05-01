@@ -7,11 +7,11 @@
 #define DHTPIN 2     // Digital pin connected to the DHT sensor
 // Bash variables to set on cmd / terminal
 
-$ssid
-$wifiPassword
-$mqttServerIp
-$inTopic
-$outTopic
+//$ssid
+//$wifiPassword
+//$mqttServerIp
+//$inTopic
+//$outTopic
 
 // Uncomment the type of sensor in use:
 #define DHTTYPE    DHT11     // DHT 11
