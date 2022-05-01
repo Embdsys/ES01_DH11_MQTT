@@ -7,11 +7,11 @@
 #define DHTPIN 2     // Digital pin connected to the DHT sensor
 // Bash variables to set on cmd / terminal
 
-$ssid
-$wifiPassword
-$mqttServerIp
-$inTopic
-$outTopic
+123
+1234
+12345
+123456
+1234567
 
 // Uncomment the type of sensor in use:
 #define DHTTYPE    DHT11     // DHT 11
@@ -30,9 +30,9 @@ WiFiUDP ntpUDP;
 // no offset
 NTPClient timeClient(ntpUDP);
 // Update these with values suitable for your network.
-const char* ssid = "$ssid"; //"DBB5DF";  // $ssid
-const char* password = "$wifiPassword";//"3HW149W30E11F";  // $wifiPassword
-const char* mqtt_server = "$mqttServerIp";//"192.168.0.77"; // $mqttServerIp
+const char* ssid = "123"; //"DBB5DF";  // 123
+const char* password = "1234";//"3HW149W30E11F";  // 1234
+const char* mqtt_server = "12345";//"192.168.0.77"; // 12345
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -93,7 +93,7 @@ void reconnect() {
       // Once connected, publish an announcement...
       //client.publish("outTopic", "hello world");
       // ... and resubscribe
-      client.subscribe("$inTopic"); //Subsribe to a topic here $inTopic
+      client.subscribe("123456"); //Subsribe to a topic here 123456
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -130,6 +130,6 @@ void loop() {
     int tempo = millis(); 
     //Gettime
     snprintf (msg, MSG_BUFFER_SIZE, "%i : %i : %i",tempo, tempValue, humValue); //Here you write the message to publish
-    client.publish("$outTopic",msg); // Here is out topic $outTopic
+    client.publish("1234567",msg); // Here is out topic 1234567
   }
 }
