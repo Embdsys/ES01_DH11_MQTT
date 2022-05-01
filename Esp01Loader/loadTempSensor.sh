@@ -39,11 +39,19 @@ echo "Done updating file!!"
 
 cat ./DHT11_MQtt_ESP01/DHT11_MQtt_ESP01.ino
 
+#xdotool key ctrl+shift+t
 arduino ./DHT11_MQtt_ESP01/DHT11_MQtt_ESP01.ino
-
+#xdotool key ctrl+shift+t
+bash runBinary.sh
 # Make .ino into .bin
-xte 'sleep 30' 'keydown Control_L' 'keydown Alt_L' 'keydown s' 'keyup Control_L' 'keyup Alt_L' 'keyup s' 
+#WID=`xdotool search --name "arduino" | head -1`
+#xdotool selectwindow
+# Make the fucker click on the screen to select it
+# left half screen x:416 y:445 screen:0 window:37748780
+# wait to let arduino IDE load
+#sleep 120
+#xdotool mousemove 416 445 click 1
+#xdotool keydown ctrl+alt+s
+#xdotool keyup ctrl+alt+s
 
-# Close arduino IDE
-xte 'sleep 30' 'keydown Control_L' 'keydown c' 'keyup Control_L' 'keyup c'
-
+echo "stage1 completed!!"
