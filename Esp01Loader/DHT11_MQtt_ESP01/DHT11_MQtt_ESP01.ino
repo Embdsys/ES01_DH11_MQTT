@@ -10,8 +10,8 @@
 //DBB5DF
 //3HW149W30E11F
 //192.168.0.77
-//inTopic2
-//outTopic2
+//inTopic3
+//outTopic3
 
 // Uncomment the type of sensor in use:
 #define DHTTYPE    DHT11     // DHT 11
@@ -93,7 +93,7 @@ void reconnect() {
       // Once connected, publish an announcement...
       //client.publish("outTopic", "hello world");
       // ... and resubscribe
-      client.subscribe("inTopic2"); //Subsribe to a topic here inTopic2
+      client.subscribe("inTopic3"); //Subsribe to a topic here inTopic3
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -130,6 +130,6 @@ void loop() {
     int tempo = millis(); 
     //Gettime
     snprintf (msg, MSG_BUFFER_SIZE, "%i : %i : %i",tempo, tempValue, humValue); //Here you write the message to publish
-    client.publish("outTopic2",msg); // Here is out topic outTopic2
+    client.publish("outTopic3",msg); // Here is out topic outTopic3
   }
 }

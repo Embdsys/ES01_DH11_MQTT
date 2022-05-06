@@ -33,10 +33,12 @@ NTPClient timeClient(ntpUDP);
 const char* ssid = "$ssid"; //"DBB5DF";  // $ssid
 const char* password = "$wifiPassword";//"3HW149W30E11F";  // $wifiPassword
 const char* mqtt_server = "$mqttServerIp";//"192.168.0.77"; // $mqttServerIp
+const int num_seconds_to_sleep = 30;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 unsigned long lastMsg = 0;
+
 #define MSG_BUFFER_SIZE	(50)
 char msg[MSG_BUFFER_SIZE];
 //float msg;
@@ -105,6 +107,8 @@ void reconnect() {
 }
 
 void setup() {
+  // Create deep sleep
+  pinMode(D0,WAKEUP_PULLUP);
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
@@ -131,5 +135,6 @@ void loop() {
     //Gettime
     snprintf (msg, MSG_BUFFER_SIZE, "%i : %i : %i",tempo, tempValue, humValue); //Here you write the message to publish
     client.publish("$outTopic",msg); // Here is out topic $outTopic
+    ESP.deepSleep(num_seconds_to_sleep * 1000000, RF_DEFAULT);
   }
 }
