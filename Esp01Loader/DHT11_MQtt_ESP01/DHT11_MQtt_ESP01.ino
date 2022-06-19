@@ -7,11 +7,19 @@
 #define DHTPIN 13     // Digital pin connected to the DHT sensor
 // Bash variables to set on cmd / terminal
 
+<<<<<<< HEAD
 //107E1C
 //J2C26C2B76556
 //192.168.0.231
 //inTopic2
 //esp8266
+=======
+//DBB5DF
+//3HW149W30E11F
+//192.168.0.77
+//inTopic3
+//outTopic3
+>>>>>>> develop
 
 // Uncomment the type of sensor in use:
 #define DHTTYPE    DHT11     // DHT 11
@@ -99,7 +107,7 @@ void reconnect() {
       // Once connected, publish an announcement...
       //client.publish("outTopic", "hello world");
       // ... and resubscribe
-      client.subscribe("inTopic2"); //Subsribe to a topic here inTopic2
+      client.subscribe("inTopic3"); //Subsribe to a topic here inTopic3
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -142,6 +150,7 @@ void loop() {
     //Serial.println(tempValue);
     int tempo = millis(); 
     //Gettime
+<<<<<<< HEAD
     snprintf (msg, MSG_BUFFER_SIZE, "%i : %i : %i",counter, tempValue, humValue); //Here you write the message to publish
     client.publish("esp8266",msg); // Here is out topic esp8266
     counter++;
@@ -149,5 +158,9 @@ void loop() {
     //if (counter > 3){
     ESP.deepSleep(20e6); 
     //} 
+=======
+    snprintf (msg, MSG_BUFFER_SIZE, "%i : %i : %i",tempo, tempValue, humValue); //Here you write the message to publish
+    client.publish("outTopic3",msg); // Here is out topic outTopic3
+>>>>>>> develop
   }
 }
